@@ -1,8 +1,25 @@
+import React from 'react';
+import { useState, useEffect } from "react";
+// 外部套件
+import axios from 'axios';
+
 import logo from './assets/logo.svg';
 import './assets/App.css';
-import React  from 'react';
+import Input from './components/Input';
 
 function App() {
+  const [text, setText] = useState('');
+  const onChangeHandler = e => {
+    setText(e.target.value)
+  }
+
+  useEffect(() => {
+    (async() => {
+      const result = await axios.get('https://randomuser.me/api/')
+      console.log(result)
+    })();
+  },[])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +35,8 @@ function App() {
         >
           Learn React
         </a>
+        <Input id='sampleText' text="一個輸入框" 
+        value={text} onChangeHandler={onChangeHandler}/>
       </header>
     </div>
   );
